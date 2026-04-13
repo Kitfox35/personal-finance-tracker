@@ -1,6 +1,6 @@
 const form = document.getElementById('transaction-form');
 const balance = document.getElementById('balance');
-const list = document.getElementById;
+const list = document.getElementById('list');
 
 
 let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
@@ -44,8 +44,8 @@ if (t.type === 'expense') totalExpense += t.amount;
 
 
 // balance stuf
-    balance.textContent = 'Balance: $${total';
-balance.ceclassName = total >= 0 ? 'positive' : 'negative';
+    balance.textContent = '$${Math.abs(total).toFixed(2)}';
+balance.className = total >= 0 ? 'positive' : 'negative';
 document.getElementByID('total-income').textContent = `$${totalIncome.toFixed(2)}`;
 
 document.getElementByID('total-expense').textContent = `$${totalExpense.toFixed(2)}`;
@@ -60,9 +60,6 @@ localStorage.setItem('transactions', JSON.stringify(transactions));
  
 
 }
-
-
-
 
 
  

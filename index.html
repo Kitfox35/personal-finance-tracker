@@ -19,43 +19,82 @@
 <div class="bg-grid"></div>
 <div class=scanlines"></div>
 <div class="app-wrapper" 
-<!-- not chatgpt wrapper --> 
+<!-- not chatgpt wrapper! --> 
+
+<header>
+    <h1>FINANCE<span class="title-accent>.EXE"</h1>
+<p class ="subtitle"> EXPERIMENTAL PERSONAL LEDGER SYSTEM v1.0</p>
+
+</header>
+
+<div class="app-grid">
+<p class="card-label"> // CURRENT BALANCE</p>
+<div id="balance">$0.00</div>
+<div class="stats-row">
+<div class="stat">
+<span class="stat-label">INCOME</span>
+<span class="stat-value income" id="total-income">$0.00</span>
+</div>
+<div class="stat-divider"></div>
+<div class="stat">
+<span class="stat-label">EXPENSES</span>
+<span class="stat-value expense" id="total-expense">$0.00</span>
+</div>
+
+
+</div>
+
+
+</div>
 
 
 
 
 
+<div class="panel-section">
+    <p class="card-label">// CASH FLOW</p>
+<div class="chart-wrap">
+<canvas id="myChart"></canvas>
+
+</div>
+
+</div>
 
 
 
-
-    <h1>Personal Finance Tracker</h1>
-    <div id="balance">Balance: $0</div>
+<div class="panel-section">
+    <p class=""card-label>// NEW TRANSACTION</p>
     <form id="transaction-form">
-        <input type="text" id="desc" placeholder="Description" required>
-        <input type="number" id="amount" placeholder="Amount" required>
-        <select id="type">
+<input type="text" id="desc" placeholder="Description" required>
+<input type="number" id="amount" placeholder="Amount" required>
+<select id="type">
+<option value="income">Income</option>
+<option value="expense">expense</option>
+</select>
 
-            <option value="income">Income</option>
-
-            <option value="expense">expense</option>
-
-
-
-        </select>
-
-        <button>Add</button>
-
-
-
+<button>ADD</button>
 
     </form>
-    <ul id="list"></ul>
 
-    <script src="script.js"></script>
+</div>
+   
+</div>
+
+
+<div class="right-panel">
+
+<div class="list-header">
+<p class="card-label">// TRANSACTION LOG</p>
+<span id="tx-count">0 ENTRIES</span>
+
+</div>
+<ul id="list"></ul>
+</div>
+</div>
+</div>
+
+
+
+
+<script src="script.js"></script>
 </body>
-
-
-
-
-    </html>
