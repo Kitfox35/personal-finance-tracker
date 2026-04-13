@@ -65,5 +65,59 @@ localStorage.setItem('transactions', JSON.stringify(transactions));
 
 
 
- // for delteing the transactions
+ 
 
+
+
+// for delteing the transactions
+
+    function deleteTransaction(id, li){
+li.style.opacity ='0'
+li.style.transition = 'opacity 0.25s, transform 0.25s'
+li.transform = 'translateX(20px)';
+setTimeout(() => {
+transaction = transactions.filter(t => t.id !== id);
+updateUI();
+
+
+}, 250);
+
+}
+
+
+const ctx = document.getElementById('myChart').getContext('2d');
+const chart = new Chart(ctx, {
+type: 'doughnut',
+data:{
+
+labels: ['Income', 'Expenses'],
+datasets: [{
+data: [0,0],
+
+    backgroundColor: ['rgba(0, 212, 255, 0.7)', 'rgba(255, 45, 120, 0.7)'],
+borderColor: ['#00d4ff', '#ff2d78'],
+borderWidth: 2
+}]
+
+
+
+},
+
+
+options: {
+responsive: true,
+maintainAspectRatio: false,
+cutout: '68%',
+plugins: {
+legend: { labels: { color: '#8a7aaa', font: { family: "'Share Tech Mono'"},
+size: 11}, boxWidth: 12}
+},
+
+
+tooltip: { callbacks: { label: ctx => ` $${ctx.parsed.toFixed(2)}` } }
+}
+
+
+
+
+});
