@@ -1,7 +1,11 @@
 const form = document.getElementById('transaction-form');
 const balance = document.getElementById('balance');
 const list = document.getElementById;
-let transactions = [];
+
+
+let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+updateUI;
+
 form.addEventListener('submit', function(e){
 
 e.preventDefault();
@@ -9,21 +13,57 @@ const desc = document.getElementById('desc').value;
 
 const amount = Number(document.getElementById('amount').value);
 const type = document.getElementById('type').value;
-const transactions = { desc, amount, type };
+const transactions = { id: Date.now(), desc, amount, type };
 transactions.push(transactions);
 updateUI();});
 
-function updateUI(){
-    list.innerHTML = '';
-let total = 0;
-transactions.forEach(t => {
+// UPDATE UI FUNCTION IS HEREEEEE
+
+    function updateUI(){
+        list.innerHTML = '';
+    let total = 0;
+
+    let totalIncome = 0;
+    let totalExpense = 0;
+
+
+    transactions.forEach(t => {
 const li = document.createElement('li');
-li.textContent = `${t.desc} - $${t.amount} (${t.type})`;
-list.appendChild(li);
+li.classList.add(t.type);
+li.innerHTML = `<span class="tx-desc">${t.desc}</span><span class="tx-amount">${t.type === 'income' ? '+' : '-'}$${Number(t.amount).
+    toFixed(2)}</span><button class="tx-delete" onclick="deleteTransaction
+(${t.id}, this.parentElement)">✕</button>`;
 
-total += t.type === 'income' ? t.amount : -t.amount;
-})
+list.appendChilld(li);
 
-balance.textContent = 'Balance: $${total';
+    total += t.type === 'income' ? t.amount : -t.amount;
+
+if( t.type === 'income') totalIncome += t.amount;
+if (t.type === 'expense') totalExpense += t.amount;
+    })
+
+
+// balance stuf
+    balance.textContent = 'Balance: $${total';
+balance.ceclassName = total >= 0 ? 'positive' : 'negative';
+document.getElementByID('total-income').textContent = `$${totalIncome.toFixed(2)}`;
+
+document.getElementByID('total-expense').textContent = `$${totalExpense.toFixed(2)}`;
+document.getElementById('tx-count').textContent 
+= `${transactions.length} ENTR${transactions.length === 1 ? 'Y' : 'IES'}`;
+
+chart.data.datasets[0].data = [totalIncome, totalExpense];
+chart.update();
+
+
+localStorage.setItem('transactions', JSON.stringify(transactions));
+ 
 
 }
+
+
+
+
+
+ // for delteing the transactions
+
