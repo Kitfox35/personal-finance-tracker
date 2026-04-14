@@ -6,7 +6,6 @@ const list = document.getElementById('list');
 
 
 let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-updateUI();
 
 // Perhpas this will fix update UI cal
 
@@ -48,18 +47,7 @@ tooltip: { callbacks: { label: ctx => ` $${ctx.parsed.toFixed(2)}` } }
 
 });
 
-
-document.addEventListener("DOMContentLoaded", () => {
-const form = document.getElementById("transaction-form");
-console.log("FORM IS READY:", form);
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        console.log("submit fired");
-
-    });
-
-
-});
+updateUI();
 
 
 
@@ -70,17 +58,17 @@ console.log("FORM IS READY:", form);
 
 
 
+form.addEventListener('submit', function(e){
 
-//form.addEventListener('submit', function(e){
+e.preventDefault();
+const desc = document.getElementById('desc').value;
 
-//e.preventDefault();
-//const desc = document.getElementById('desc').value;
-
-//const amount = Number(document.getElementById('amount').value);
-//const type = document.getElementById('type').value;
-//const transaction = { id: Date.now(), desc, amount, type };
-//transactions.push(transaction);
-//updateUI();});
+const amount = Number(document.getElementById('amount').value);
+const type= document.getElementById('type').value;
+const category = document.getElementById('category').value;
+const transaction = { id: Date.now(), desc, amount, type, category, date: new Date().tolocaleDataString };
+transactions.push(transaction);
+updateUI();});
 
 // UPDATE UI FUNCTION IS HEREEEEE
 
@@ -95,8 +83,7 @@ console.log("FORM IS READY:", form);
     transactions.forEach(t => {
 const li = document.createElement('li');
 li.classList.add(t.type);
-li.innerHTML = `<span class="tx-desc">${t.desc}</span><span class="tx-amount">${t.type === 'income' ? '+' : '-'}$${Number(t.amount).toFixed(2)}</span><button class="tx-delete" onclick="deleteTransaction
-(${t.id}, this.parentElement)">✕</button>`;
+li.innerHTML=`<span class="tx-desc">${t.desc}<span class="tx-cat">[${t.category || 'Other'}]</span></span><span class="tx-date">${t.date || ''}</span><span class="tx-amount">${t.type === 'income' ? '+' : '-'}$${Number(t.amount).toFixed(2)}</span><button class="tx-delete" onclick="deleteTransaction(${t.id}, this.parentElement)">✕</button>`; 
 
 list.appendChild(li);
 
@@ -116,6 +103,7 @@ document.getElementById('total-expense').textContent = `$${totalExpense.toFixed(
 document.getElementById('tx-count').textContent 
 = `${transactions.length} ENTR${transactions.length === 1 ? 'Y' : 'IES'}`;
 
+if (!chart) return;
 chart.data.datasets[0].data = [totalIncome, totalExpense];
 chart.update();
 

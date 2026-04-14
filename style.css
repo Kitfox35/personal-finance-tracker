@@ -461,3 +461,22 @@ transition:opacity 0.15s,color 0.15s;
 }
 
 .tx-delte:hover{color:var(--pink);}
+
+
+.tx-cat
+{
+font-size: 0.7rem;
+color:var(--purple);
+letter-spacing: 0.1em;
+margin-left: 6px;
+
+
+}
+
+
+.tx-date{
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-right: 8px;
+    flex-shrink: 0;
+}
