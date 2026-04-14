@@ -1,3 +1,5 @@
+console.log("SCRIPT LOADED");
+console.log("FORM", document.getElementById("transaction-form"));
 const form = document.getElementById('transaction-form');
 const balance = document.getElementById('balance');
 const list = document.getElementById('list');
@@ -46,16 +48,39 @@ tooltip: { callbacks: { label: ctx => ` $${ctx.parsed.toFixed(2)}` } }
 
 });
 
-form.addEventListener('submit', function(e){
 
-e.preventDefault();
-const desc = document.getElementById('desc').value;
+document.addEventListener("DOMContentLoaded", () => {
+const form = document.getElementById("transaction-form");
+console.log("FORM IS READY:", form);
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        console.log("submit fired");
 
-const amount = Number(document.getElementById('amount').value);
-const type = document.getElementById('type').value;
-const transaction = { id: Date.now(), desc, amount, type };
-transactions.push(transaction);
-updateUI();});
+    });
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+//form.addEventListener('submit', function(e){
+
+//e.preventDefault();
+//const desc = document.getElementById('desc').value;
+
+//const amount = Number(document.getElementById('amount').value);
+//const type = document.getElementById('type').value;
+//const transaction = { id: Date.now(), desc, amount, type };
+//transactions.push(transaction);
+//updateUI();});
 
 // UPDATE UI FUNCTION IS HEREEEEE
 
