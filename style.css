@@ -227,3 +227,124 @@ transition: all 0.4s ease;
     margin-top: 1.25rem;
     padding-top: 1.25rem;
     border-top: 1px solid rgba(177, 79, 255, 0.2);}
+
+    .stat { flex: 1; text-align: center;}
+
+    .stat-label {
+
+display: block;
+font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
+    }
+
+  
+  
+  
+    .stat-value
+    {
+font-family: var(--font-display);
+font-size: 1.1rem;
+font-weight: 700;
+    }
+
+
+.stat-value.income { color: var(--blue-soft); text-shadow: 0 0 12px var(--blue-glow);}
+
+    .stat-value.expense { color: var(--pink-soft); text-shadow: 0 0 12px 
+    var(--pink-glow);}
+
+    .stat-divider
+    {
+        width: 1px;
+    height: 36px;
+    background: linear-gradient(to bottom, transparent, var(--purple), transparent);}
+
+
+
+
+    .chart-wrap
+{
+    position: relative;
+    height: 160px;
+
+}
+
+
+
+
+#transaction-form  {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+}
+
+
+
+
+/* ALL ABOUT TRANSACTIONS!!!
+
+
+
+
+. . . LOTS of transactions...
+
+too many */
+
+#transaction-form input, #transaction-form select
+{
+ background:rgba(0, 0, 0, 0.5);
+ border-radius: 1px solid var(--border-panel);  
+ border-radius: 4px;
+ color: var(--text-primary);
+ font-family: var(--font-mono);
+ font-size: 0.9rem;
+ padding:
+  0.6rem
+  0.75rem;
+width: 100%;
+outline: none;
+transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+
+    #transaction-form input::placeholder { color: var(--text-dim); }
+    #transaction-form input:focus, #transaction-form select:focus{
+
+        border-color: var(--pink);
+        box-shadow: 0 0 0 2px var(--pink-glow);
+    }
+
+
+#transaction-form select option   {
+background: var(--bg-panel);
+color : var( --text-primary);
+}
+
+#transaction-form button
+    {
+background: transparent;
+border: 1px solid var(--pink);
+border-radius: 4px;
+color: var(--pink-soft);
+cursor: var(--pink-soft);
+font-family: var(--font-display);
+font-size: 0.75rem;
+font-weight: 700;
+letter-spacing: 0.15em;
+padding: 0.75rem;
+position: relative;
+overflow: hidden;
+transition: color 0.2s, box-shadow 0.2s;
+width: 100%
+}
+
+
+
+
+
+
+#transactionn-form button:active { transform: scale(0.98); }
+
+/* come back for right panel *?*/
