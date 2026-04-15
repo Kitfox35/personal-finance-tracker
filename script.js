@@ -139,7 +139,7 @@ updateChart(totalIncome, totalExpense);
 
 
 localStorage.setItem('transactions', JSON.stringify(transactions));
- 
+ updateMonthlySummary();
 
 }
 
@@ -209,30 +209,55 @@ function switchChart(mode){
 chartMode=mode;
 document.getElementById('btn-overview').classList.toggle('active', mode === 'overview');
 document.getElementById('btn-category').classList.toggle('active', mode === 'category');
+updateChart();
 }
 
 function updateChart()
 {
 if (!chart) return;
-if (chartMode === 'overview');
+if (chartMode === 'overview')
 {
 const totalIncome = transactions.filter(t=>t.type==='income').reduce((sum, t)=> sum + t.amount, 0);
 const totalExpense = transactions.filter ( t=> t.type === 'expense').reduce((sum,t)=> sum+t.amount, 0);
 chart.data.labels=['Income', 'Expenses'];
 chart.data.datasets[0].data=[totalIncome,totalExpense];
-chart.data.datasets[0].backgroundColor =['rgba(0,212,255,0.7', 'rgba(255, 45,120,0.7'];
+chart.data.datasets[0].backgroundColor =['rgba(0,212,255,0.7)', 'rgba(255, 45,120,0.7)'];
 chart.data.datasets[0].borderColor=['#00d4ff', '#ff2d78'];
 }
 
 if(chartMode==='category'){
     const categories=['Food', 'Bills', 'Shopping', 'School', 'Other'];
-    const totals = categories.map(cat =>transactions.filter(t=>t.type==='expense' && t.category=== cat).reduce((sumt,t)=>sum+t.amount,0));
+    const totals =categories.map(cat => transactions.filter(t => t.type === 'expense' && t.category === cat).reduce((sum, t) => sum + t.amount, 0));
 chart.data.labels=categories;
 chart.data.datasets[0].data =totals;
-chart.data.datasets[0].backgroundColor = ['rgba(255,45,120,0.7', 'rgba(177, 79, 255,0.7)', 'rgba(0,212, 255, 0.7','rgba( 255, 190, 50, 0.7)', 'rgba(100,255, 180, 0.7'];
+chart.data.datasets[0].backgroundColor = ['rgba(255,45,120,0.7)', 'rgba(177, 79, 255,0.7)', 'rgba(0,212, 255, 0.7)','rgba( 255, 190, 50, 0.7)', 'rgba(100,255, 180, 0.7)'];
 chart.data.datasets[0].borderColor = ['#ff2d78', '#b14fff', '#00d4ff', '#ffbe32', "#64ffb4"];
 
 }
 
 chart.update();
+}
+
+
+function updateMonthlySummary()
+{
+
+    const now=new Date();
+const thisMonth= now.getMonth();
+const thisYear = now.getFullYear();
+const monthlyExpenses = transactions.filter(t =>{
+const d = new Date(t.date);
+return t.type === 'expense' && d.getMonth() == thisMonth && d.getFullYear()=== thisYear;
+
+}).reduce((sum, t) => sum + t.amount, 0);
+
+const monthlyIncome = transactions.filter(t => {
+const d = new Date(t.date);
+return t.type === 'income' && d.getMonth() === thisMonth && d.getFullYear() === thisYear;
+
+
+}).reduce((sum, t) => sum + t.amount, 0);
+const monthName = now.toLocaleString('default', {month: 'long' });
+document.getElementById('monthly-text'.textContent = `${monthName}: +$${monthlyIncome.toFixed(2)} income . -$${monthlyExpenses.toFixed(2)} spent`)
+
 }

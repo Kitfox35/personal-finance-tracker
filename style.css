@@ -529,7 +529,7 @@ margin-bottom: 0.75rem;
 
 .chart-btn{
     background: transparent;
-    border: 1px solid var(--borderr-panel);
+    border: 1px solid var(--border-panel);
     border-radius: 4px;
     color: var(--text-muted);
     cursor: pointer;
@@ -550,3 +550,20 @@ box-shadow:0 0 8px var(--pink-glow);
 border-color:var(--purple);
 color: var(--text-primary);
 }
+
+#monthly-summary {
+    background: rgba(177, 79, 255,0.1);
+    border: 1px solid rgba(177, 79, 255,0.3);
+    border-radius:4px;
+    padding: 0.6rem 0.875rem;
+margin-bottom: 1rem;
+font-size:0.75rem;
+letter-spacing: 0.1em;
+color : var(--text-muted);
+
+}
+
+    #monthly-text
+    {
+        color: var(--purple);
+    }
