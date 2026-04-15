@@ -3,7 +3,9 @@ console.log("FORM", document.getElementById("transaction-form"));
 const form = document.getElementById('transaction-form');
 const balance = document.getElementById('balance');
 const list = document.getElementById('list');
-
+const searchInput = document.getElementById('search');
+const submitBtn = document.getElementById('submit-btn');
+let editingId = null;
 
 let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
 
@@ -66,8 +68,34 @@ const desc = document.getElementById('desc').value;
 const amount = Number(document.getElementById('amount').value);
 const type= document.getElementById('type').value;
 const category = document.getElementById('category').value;
-const transaction = { id: Date.now(), desc, amount, type, category, date: new Date().tolocaleDataString };
+
+
+
+
+
+if(editingId !== null)
+{
+    transactions = transactions.map(t => t.id === editingId ? { id: editingId, desc, amount, type, category, date: t.date} : t)
+editingId = null;
+submitBtn.textContent='Add';
+}
+
+else{
+const transaction = { id: Date.now(), desc, amount, type, category, date: new Date().toLocaleDateString() };
 transactions.push(transaction);
+}
+
+
+
+
+
+
+
+
+
+
+
+
 updateUI();});
 
 // UPDATE UI FUNCTION IS HEREEEEE
@@ -83,7 +111,7 @@ updateUI();});
     transactions.forEach(t => {
 const li = document.createElement('li');
 li.classList.add(t.type);
-li.innerHTML=`<span class="tx-desc">${t.desc}<span class="tx-cat">[${t.category || 'Other'}]</span></span><span class="tx-date">${t.date || ''}</span><span class="tx-amount">${t.type === 'income' ? '+' : '-'}$${Number(t.amount).toFixed(2)}</span><button class="tx-delete" onclick="deleteTransaction(${t.id}, this.parentElement)">✕</button>`; 
+li.innerHTML=`<span class="tx-desc">${t.desc} <span class="tx-cat">[${t.category || 'Other'}]</span></span><span class="tx-date">${t.date || ''}</span><span class="tx-amount">${t.type === 'income' ? '+' : '-'}$${Number(t.amount).toFixed(2)}</span><button class="tx-edit" onclick="editTransaction(${t.id})">✎</button><button class="tx-delete" onclick="deleteTransaction(${t.id}, this.parentElement)">✕</button>`;
 
 list.appendChild(li);
 
@@ -95,7 +123,10 @@ if (t.type === 'expense') totalExpense += t.amount;
 
 
 // balance stuf
-    balance.textContent = `$${Math.abs(total).toFixed(2)}`;
+
+    balance.textContent = total < 0 ? `-$${Math.abs(total).toFixed(2)}`: `$${total.toFixed(2)}`;
+
+
 balance.className = total >= 0 ? 'positive' : 'negative';
 document.getElementById('total-income').textContent = `$${totalIncome.toFixed(2)}`;
 
@@ -133,4 +164,40 @@ updateUI();
 
 }
 
+function editTransaction(id)
+{
+    const t = transactions.find(t => t.id ===id);
+    document.getElementById('desc').value = t.desc;
+    document.getElementById ('amount').value=t.amount;
+    
+    document.getElementById('type').value= t.type;
+    document.getElementById('category').value=t.category || 'Other';
+    
+    
+    editingId = id;
+    submitBtn.textContent = "Update";
+}
 
+
+
+
+
+
+
+
+
+// filter for searching liver transactions
+
+searchInput.addEventListener('input', function(){
+
+const term = searchInput.value.toLowerCase();
+document.querySelectorAll('#list li').forEach(li => {
+const desc = li.querySelector('.tx-desc').textContent.toLowerCase();
+li.style.display= desc.includes(term) ? 'flex' : 'none';
+
+
+});
+
+
+
+});

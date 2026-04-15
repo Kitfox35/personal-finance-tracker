@@ -28,12 +28,17 @@
 
 </header>
 
-<div class="app-grid">
-<p class="card-label"> // CURRENT BALANCE</p>
+<div class="app-grid"> 
+<div class="left-panel">
+<div id="balance-card">
+<p class="card-label">// CURRENT BALANCE</p>
 <div id="balance">$0.00</div>
 <div class="stats-row">
 <div class="stat">
-<span class="stat-label">INCOME</span>
+
+
+
+    <span class="stat-label">INCOME</span>
 <span class="stat-value income" id="total-income">$0.00</span>
 </div>
 <div class="stat-divider"></div>
@@ -41,75 +46,59 @@
 <span class="stat-label">EXPENSES</span>
 <span class="stat-value expense" id="total-expense">$0.00</span>
 </div>
-
-
 </div>
-
-
 </div>
-
-
-
-
-
 <div class="panel-section">
-    <p class="card-label">// CASH FLOW</p>
+<p class="card-label">// CASH FLOW</p>
+
+
 <div class="chart-wrap">
 <canvas id="myChart"></canvas>
-
 </div>
-
 </div>
-
-
-
 <div class="panel-section">
-    <p class="card-label">// NEW TRANSACTION</p>
-    <form id="transaction-form">
+<p class="card-label">// NEW TRANSACTION</p>
+
+
+
+
+
+<form id="transaction-form">
 <input type="text" id="desc" placeholder="Description" required>
 <input type="number" id="amount" placeholder="Amount" required>
 <select id="type">
 <option value="income">Income</option>
 <option value="expense">expense</option>
 </select>
-
-
-
 <select id="category">
-
-<option value="Food">Food</option>
-<option value="Bills">Bills</option>
-<option value="Shopping">Shopping</option>
-<option value="School">School</option>
-<option value="Other">Other</option>
-
+    <option value="Food">Food</option>
+    <option value="Bills">Bills</option>
+    <option value="Shopping">Shopping</option>
+    <option value="School">School</option>
+    <option value="Other">Other</option>
 </select>
 
 
 
-<button>ADD</button>
 
-    </form>
 
+<button type="submit" id="submit-btn">Add</button>
+</form>
 </div>
-   
 </div>
-
-
 <div class="right-panel">
+<input type="text" id="search" placeholder="Search transactions...">
+
+
 
 <div class="list-header">
 <p class="card-label">// TRANSACTION LOG</p>
 <span id="tx-count">0 ENTRIES</span>
-
 </div>
 <ul id="list"></ul>
-
-
-
-
-
-
 </div>
+</div> 
+
+
 <script src="script.js"></script>
 </body>

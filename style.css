@@ -47,7 +47,7 @@ overflow-x: hidden;
     inset:0;
 
 z-index: 0;
-background-image:none
+background-image:
 linerar-gradient(rgba(0, 212, 255, 0.07) 1px, transparent 1px),
 linear-gradient(90deg, rgba(0, 212, 255, 0.7) 1px, transparent 1px);
 background-size: 40px 40px;
@@ -156,7 +156,7 @@ animation: title-pulse 4s ease-in-out infinite;
 
 {
 background: var(--bg-panel);
-border: 1px solid var(--bg panel);
+border: 1px solid var(--border-panel);
 border-radius: 12px;
 padding: 1.25rem;
 position: relative;
@@ -176,7 +176,7 @@ overflow:visible;
   .card-label{
     font-size: 0.65rem;
     letter-spacing: 0.2em;
-    color: var(----pink-soft);
+    color: var(--pink-soft);
     margin-bottom: 1rem;
     opacity: 0.8;
   }  
@@ -214,7 +214,7 @@ color:var(--blue-soft);
 
 }
 
-#balance.positve 
+#balance.positive 
 { color: var(--blue-soft); text-shadow: 0 0 30px var(--blue-glow);}
 
 
@@ -328,7 +328,7 @@ background: transparent;
 border: 1px solid var(--pink);
 border-radius: 4px;
 color: var(--pink-soft);
-cursor: var(--pink-soft);
+cursor: pointer;
 font-family: var(--font-display);
 font-size: 0.75rem;
 font-weight: 700;
@@ -345,7 +345,7 @@ width: 100%
 
 
 
-#transactionn-form button:active { transform: scale(0.98); }
+#transaction-form button:active { transform: scale(0.98); }
 
 /* come back for right panel *?*/
 
@@ -438,10 +438,10 @@ padding: 3px 10px
 
 
 #list li.income .tx-amount {
-    color:val(--blue-soft);
+    color:var(--blue-soft);
 }
 
-#list.li.expense .tx-amount{color:var(--pink-soft); }
+#list li.expense .tx-amount{color:var(--pink-soft); }
 
 .tx-delete
 {
@@ -456,11 +456,11 @@ transition:opacity 0.15s,color 0.15s;
 
 }
 
-#list li:hove .tx-delete{
+#list li:hover .tx-delete{
     opacity: 1;
 }
 
-.tx-delte:hover{color:var(--pink);}
+.tx-delete:hover{color:var(--pink);}
 
 
 .tx-cat
@@ -480,3 +480,40 @@ margin-left: 6px;
     margin-right: 8px;
     flex-shrink: 0;
 }
+
+#search{
+    background: rgba(255,255, 255, 0.8);
+    border: 1px solid var(--border-panel);
+    border-radius: 4px;
+    color: #0a0014;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    padding: 0.6rem 0.75rem;
+    width: 100%;
+    outline:none;
+    margin-bottom: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+
+
+#search:focus
+{
+border-color: var(--pink);
+box-shadow: 0 0 0 2px var(--pink-glow);
+}
+#search::placeholder { color: var(--text-muted);}
+
+.tx-edit
+{
+    background: none;
+    border: none;
+    color: var(--blue-soft);
+    cursor: pointer;
+    font-size: 1rem;
+    opacity: 0;
+    transition: opacity 0.15s, color 0.15s;
+}
+
+#list li:hover .tx-edit { opacity: 1; }
+.tx-edit:hover { color: var(--blue);}
