@@ -6,7 +6,7 @@ const list = document.getElementById('list');
 const searchInput = document.getElementById('search');
 const submitBtn = document.getElementById('submit-btn');
 let editingId = null;
-
+let chartMode='overview';
 let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
 
 // Perhpas this will fix update UI cal
@@ -135,8 +135,7 @@ document.getElementById('tx-count').textContent
 = `${transactions.length} ENTR${transactions.length === 1 ? 'Y' : 'IES'}`;
 
 if (!chart) return;
-chart.data.datasets[0].data = [totalIncome, totalExpense];
-chart.update();
+updateChart(totalIncome, totalExpense);
 
 
 localStorage.setItem('transactions', JSON.stringify(transactions));
@@ -200,4 +199,40 @@ li.style.display= desc.includes(term) ? 'flex' : 'none';
 
 
 
-});
+}
+
+
+);
+
+
+function switchChart(mode){
+chartMode=mode;
+document.getElementById('btn-overview').classList.toggle('active', mode === 'overview');
+document.getElementById('btn-category').classList.toggle('active', mode === 'category');
+}
+
+function updateChart()
+{
+if (!chart) return;
+if (chartMode === 'overview');
+{
+const totalIncome = transactions.filter(t=>t.type==='income').reduce((sum, t)=> sum + t.amount, 0);
+const totalExpense = transactions.filter ( t=> t.type === 'expense').reduce((sum,t)=> sum+t.amount, 0);
+chart.data.labels=['Income', 'Expenses'];
+chart.data.datasets[0].data=[totalIncome,totalExpense];
+chart.data.datasets[0].backgroundColor =['rgba(0,212,255,0.7', 'rgba(255, 45,120,0.7'];
+chart.data.datasets[0].borderColor=['#00d4ff', '#ff2d78'];
+}
+
+if(chartMode==='category'){
+    const categories=['Food', 'Bills', 'Shopping', 'School', 'Other'];
+    const totals = categories.map(cat =>transactions.filter(t=>t.type==='expense' && t.category=== cat).reduce((sumt,t)=>sum+t.amount,0));
+chart.data.labels=categories;
+chart.data.datasets[0].data =totals;
+chart.data.datasets[0].backgroundColor = ['rgba(255,45,120,0.7', 'rgba(177, 79, 255,0.7)', 'rgba(0,212, 255, 0.7','rgba( 255, 190, 50, 0.7)', 'rgba(100,255, 180, 0.7'];
+chart.data.datasets[0].borderColor = ['#ff2d78', '#b14fff', '#00d4ff', '#ffbe32', "#64ffb4"];
+
+}
+
+chart.update();
+}

@@ -517,3 +517,36 @@ box-shadow: 0 0 0 2px var(--pink-glow);
 
 #list li:hover .tx-edit { opacity: 1; }
 .tx-edit:hover { color: var(--blue);}
+
+
+
+.chart-toggle
+{
+    display: flex;
+gap:0.5rem;
+margin-bottom: 0.75rem;
+}
+
+.chart-btn{
+    background: transparent;
+    border: 1px solid var(--borderr-panel);
+    border-radius: 4px;
+    color: var(--text-muted);
+    cursor: pointer;
+font-family: var(--font-mono);
+font-size:0.6rem;
+letter-spacing:0.1em;
+padding: 4px 10px;
+transition: all 0.2s;
+}
+
+.chart-btn.active
+{
+    border-color: var(--pink);
+color:var(--pink-soft);
+box-shadow:0 0 8px var(--pink-glow);
+}
+.chart-btn:hover {
+border-color:var(--purple);
+color: var(--text-primary);
+}
