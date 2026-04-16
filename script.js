@@ -8,6 +8,7 @@ const submitBtn = document.getElementById('submit-btn');
 let editingId = null;
 let chartMode='overview';
 let monthlyBudget= parseFloat(localStorage.getItem('monthlyBudget'))
+let goals = JSON.parse(localStorage.getItem('goals')) || [];
 let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
 
 // Perhpas this will fix update UI cal
@@ -303,6 +304,87 @@ warning.className ='budget-ok';
 }
 
 
+
+
+}
+
+
+function toggleGoalForm()
+{
+const form=document.getElementById('goal-form');
+form.style.display = form.style.display === 'none' ? 'flex' : 'none';
+
+
+
+}
+
+
+function addGoal(){
+const name= document.getElementById('goal-name').value.trim();
+const target =parseFloat(document.getElementById('goal-target').value);
+const saved = parseFloat(document.getElementById('goal-saved').value) || 0;
+
+if (!name || isNaN(target) || target <= 0) return;
+const goal={id:Date.now(),name, target, saved};
+goals.push(goal);
+
+localStorage.setItem('goals', JSON.stringify(goals));
+document.getElementById(goal-name).value ='';
+document.getElementById(goal-target).value= '';
+document.getElementById('goal-saved').value = '';
+document.getElementById('goal-form').style.display = 'none'; 
+renderGoals();
+}
+
+function deleteGoal(id)
+{
+goals = goals.filter(g=> g.id !== id);
+localStorage.setItem('goals'. JSON.stringify(goals));
+renderGoals();
+}
+
+
+
+function addFunds(id)
+{
+const amount =parseFloat(prompt('How much to add?'));
+if(isNaN(amount) || amount <= 0) return;
+
+goals=goals.map(g => g.id === id ? { ...g, saved: Math.min(g.saved + amount, g.target) }: g);
+localStorage.setItem('goals', JSON.stringify(goals));
+renderGoals();
+}
+
+function renderGoals(){
+const goalList = document.getElementById('goal-list');
+goalList.innerHTML= '';
+if (goals.length ===0){
+goalList.innerHTML= '<li class="goal-empty">No goals yet.</li>';
+return;
+}
+goals.forEach(g =>
+    {
+const pct = Math.min((g.saved / g.target) * 100, 100);
+const done=pct>=100;
+const li=document.createElement('li');
+li.classList.add('goal-item');
+li.innerHTML=`
+<div class="goal-header">
+<span class="goal-name">${g.name}</span>
+<span class="goal-amounts">$${g.saved.toFixed(2)} / $${g.target.toFixed(2)}</span>
+</div>
+<div class="goal-bar-track">
+<div class="goal-bar-fill ${done ? 'goal=complete' : ''}" style="width:${pct}%"{pct}></div>
+</div>
+<div class="goal-footer">
+<span class="goal-pct">${Math.round(pct)}% complete</span>
+<div class="goal-actions">
+${done ? '<span class = "goal-done-badge"> GOAL MET!</span>' : `<button class="goal-fund-btn" onclick="addFunds(${g.id})"> + Add Funds</button>`}
+<button class="goal-del-btn" onclick="deleteGoal(${g.id})">✕</button>
+</div>
+</div>`;
+goalList.appendChild(li);
+});
 
 
 }

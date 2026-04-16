@@ -95,6 +95,29 @@
 </div>
 </div>
 <div class="right-panel">
+<div id="goals-section">
+<div class="list-header">
+<p class="card-label">// SAVINGS GOALS</p>
+<button id="add-goal-btn" onclick="toggleGoalForm()">+ New Goal</button>
+</div>
+<div id="goal-form" style="display:none;">
+<input type="text" id="goal-name" placeholder="Goal name...">
+<input type="number" id="goal-target" placeholder="Target amount...">
+<input type="number" id="goal-saved" placeholder="Already saved...">
+<button onclick="addGoal()">Add Goal</button>
+</div>
+<ul id="goal-list"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
 <div id="budget-section">
 <input type="number" id="budget-input" placeholder="Set monthly budget">
 <button id="budget-btn" onclick="setBudget()">Set</button>
