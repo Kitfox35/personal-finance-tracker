@@ -7,6 +7,7 @@ const searchInput = document.getElementById('search');
 const submitBtn = document.getElementById('submit-btn');
 let editingId = null;
 let chartMode='overview';
+let monthlyBudget= parseFloat(localStorage.getItem('monthlyBudget'))
 let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
 
 // Perhpas this will fix update UI cal
@@ -81,7 +82,7 @@ submitBtn.textContent='Add';
 }
 
 else{
-const transaction = { id: Date.now(), desc, amount, type, category, date: new Date().toLocaleDateString() };
+const transaction = { id: Date.now(), desc, amount, type, category, date: new Date().toISOString() };
 transactions.push(transaction);
 }
 
@@ -247,17 +248,61 @@ const thisMonth= now.getMonth();
 const thisYear = now.getFullYear();
 const monthlyExpenses = transactions.filter(t =>{
 const d = new Date(t.date);
-return t.type === 'expense' && d.getMonth() == thisMonth && d.getFullYear()=== thisYear;
-
+const valid = !isNaN(d.getTime()); 
+return t.type === 'expense' && valid && d.getMonth() === thisMonth && d.getFullYear() === thisYear;
 }).reduce((sum, t) => sum + t.amount, 0);
 
 const monthlyIncome = transactions.filter(t => {
 const d = new Date(t.date);
-return t.type === 'income' && d.getMonth() === thisMonth && d.getFullYear() === thisYear;
-
+const valid = !isNaN(d.getTime());
+return t.type === 'income' && valid && d.getMonth() === thisMonth && d.getFullYear() === thisYear;
 
 }).reduce((sum, t) => sum + t.amount, 0);
 const monthName = now.toLocaleString('default', {month: 'long' });
-document.getElementById('monthly-text'.textContent = `${monthName}: +$${monthlyIncome.toFixed(2)} income . -$${monthlyExpenses.toFixed(2)} spent`)
+document.getElementById('monthly-text').textContent = `${monthName}: +$${monthlyIncome.toFixed(2)} income . -$${monthlyExpenses.toFixed(2)} spent`;
+checkBudgetWarning(monthlyExpenses);
+}
+
+
+function setBudget()
+{
+const val=parseFloat(document.getElementById(`budget-input`).value);
+if(isNaN(val)|| val<= 0) return;
+monthlyBudget=val;
+localStorage.setItem(`monthlyBudget`, val)
+document.getElementById('budget-input').value='';
+updateMonthlySummary();
+}
+
+
+
+
+function checkBudgetWarning(spent)
+{
+const warning =document.getElementById('budget-warning');
+if(!monthlyBudget)
+{
+    warning.style.display='none'; return;
+}
+const pct = (spent/monthlyBudget)*100;
+warning.style.display='block';
+if (pct>=100)
+{
+    warning.textContent =`⚠ BUDGET EXCEEDED - $${spent.toFixed(2)} of $${monthlyBudget.toFixed(2)} spent`;
+warning.className= 'budget-danger';
+}
+else if (pct>=80)
+{
+warning.textContent=`⚠ BUDGET WARNING - $${spent.toFixed(2)} of $${monthlyBudget.toFixed(2)} spent(${Math.round(pct)}%)`;
+warning.className='budget-warn';
+}
+else{
+warning.textContent=`BUDGET OK - $${spent.toFixed(2)} of $${monthlyBudget.toFixed(2)} spent (${Math.round(pct)}%)`;
+
+warning.className ='budget-ok';
+}
+
+
+
 
 }

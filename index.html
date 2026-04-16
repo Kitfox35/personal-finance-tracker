@@ -95,11 +95,14 @@
 </div>
 </div>
 <div class="right-panel">
-<div id="monthly-summary">
-    <span id="monthly-text">No transactions this month yet.</span>
-
+<div id="budget-section">
+<input type="number" id="budget-input" placeholder="Set monthly budget">
+<button id="budget-btn" onclick="setBudget()">Set</button>
 </div>
-
+<div id="monthly-summary">
+<span id="monthly-text">No transactions this month yet.</span>
+</div>
+<div id="budget-warning" style="display:none;"></div>
 
 <input type="text" id="search" placeholder="Search transactions...">
 
