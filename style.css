@@ -250,7 +250,7 @@ font-weight: 700;
     }
 
 
-.stat-value.income { color: var(--pink-soft-soft); text-shadow: 0 0 12px var(--pink-glow);}
+.stat-value.income { color: var(--pink-soft); text-shadow: 0 0 12px var(--pink-glow);}
 
     .stat-value.expense { color: var(--pink-soft); text-shadow: 0 0 12px 
     var(--pink-glow);}
@@ -654,4 +654,235 @@ background: rgba(255, 45, 120, 0.1);
 border: 1px solid var(--border-pink);
 color: var(--pink-soft);
 animation: title-pulse 2s ease-in-out infinite;
+}
+
+#goals-section{margin-bottom: 1.25rem;}
+
+#add-goal-btn
+{
+background:transparent;
+border: 1px solid var(--purple);
+border-radius: 4px;
+color: var(--text-muted);
+cursor: pointer;
+font-family: var(--font-mono);
+font-size: 0.6rem;
+letter-spacing:0.1em;
+padding : 3px 10px;
+transition: all 0.2s;}
+
+#add-goal-btn:hover
+{
+border-color : var(--pink);
+color :var(--pink-soft);
+box-shadow: 0 0 8px var(--pink-glow);
+
+}
+
+#goal-form
+{
+    display:flex;
+flex-direction: column;
+gap: 0.5rem;
+margin-bottom: 0.75rem;
+}
+
+#goal-form input{
+background: rgba(255,255,255,0.8);
+border: 1px solid var(--border-panel);
+border-radius: 4px;
+color: #0a0014;
+font-family: var(--font-mono);
+font-size:0.85rem;
+padding: 0.5rem 0.75rem;
+width: 100%;
+outline: none;
+transition: border-color 0.2s;}
+
+#goal-form input:focus {
+
+border-color: var(--pink);
+box-shadow: 0 0 0 2px var(--pink-glow);
+}
+#goal-form input::placeholder {color:var(--text-muted);}
+
+#goal-form button
+{
+background: transparent;
+border: 1px solid var(--pink);
+border-radius: 4px;
+color: var(--pink-soft);
+cursor: pointer;
+font-family: var(--font-display);
+font-size: 0.7rem;
+font-weight: 700;
+letter-spacing: 0.15em;
+padding: 0.6rem;
+transition: all 0.2s;
+width: 100%;
+
+
+}
+
+
+#goal-form button:hover
+
+{
+
+background: linear-gradient(135deg, var(--pink), var(--purple));
+color: white;
+box-shadow: 0 0 20px var(--pink-glow);
+
+
+}
+
+#goal-empty{
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+
+.goal-item
+{
+background: rgba(0,0,0,0.3);
+border:1px solid var(--border-panel);
+border-radius:8px;
+padding:0.75rem;
+display: flex;
+flex-direction: column;
+gap: 0.5rem;
+}
+
+
+.goal-header
+{
+display: flex;
+justify-content: space-between;
+align-items: center;}
+
+.goal-name
+{
+font-size: 0.85rem;
+color : var(--text-primary);
+}
+
+
+.goal-amounts
+{
+font-family:var(--font-display);
+font-size: 0.7rem;
+color: var(--text-muted);
+
+
+
+}
+
+.goal-bar-track
+{
+background: rgba(255,255,255,0.8);
+border-radius: 100px;
+height: 6px;
+overflow: hidden;
+
+}
+
+.goal-bar-fill
+{
+background: linear-gradient(90deg, var(--pink), var(--purple));
+border-radius:100px;
+height: 100%;
+transition: width 0.4s ease;
+
+
+}
+
+.goal-bar-fill.goal-complete
+{
+background: linear-gradient(90deg, var(--blue), var(--purple));
+}
+
+.goal-footer
+{
+
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+
+}
+
+.goal-pct{
+font-size:0.65rem;
+color:var(--text-dim);
+letter-spacing: 0.1em;
+
+}
+
+.goal-actions{
+    display:flex;
+    gap:0.4rem;
+    align-items:center;}
+
+.goal-fund-btn
+{
+background: transparent;
+border: 1px solid var(--purple);
+border-radius: 4px;
+color: var(--text-muted);
+cursor:pointer;
+font-family: var(--font-mono);
+font-size: 0.6rem ;
+letter-spacing: 0.08em;
+padding: 2px 8px;
+transition: all 0.2s;
+
+
+}
+
+
+.goal-del-btn
+{
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: color 0.15s;  
+}
+
+.goal-del-btn:hover {color :var(--pink);}
+
+.goal-done-badge
+    {
+font-size: 0.65rem;
+letter-spacing:0.1em;
+color:var(--blue);
+border: 1px solid var(--blue);
+border-radius:4px;
+padding:2px 8px;}
+
+
+#clear-btn
+{
+
+
+    background: transparent;
+    border: 1px solid rgba(255,45,120,0.4);
+    border-radius: 4px;
+    color: var(--pink-soft);
+    cursor:pointer;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+letter-spacing:0.1em;
+padding: 3px 10px;
+transition: all 0.2s;
+
+}
+
+#clear-btn:hover{
+
+    background: rgba(255,45,120,0.1);
+    box-shadow: 0 0 8px var(--pink-glow);
 }

@@ -7,7 +7,7 @@ const searchInput = document.getElementById('search');
 const submitBtn = document.getElementById('submit-btn');
 let editingId = null;
 let chartMode='overview';
-let monthlyBudget= parseFloat(localStorage.getItem('monthlyBudget'))
+let monthlyBudget= parseFloat(localStorage.getItem('monthlyBudget')) || null;
 let goals = JSON.parse(localStorage.getItem('goals')) || [];
 let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
 
@@ -142,8 +142,8 @@ updateChart(totalIncome, totalExpense);
 
 localStorage.setItem('transactions', JSON.stringify(transactions));
  updateMonthlySummary();
-
-}
+renderGoals();
+} 
 
 
  
@@ -329,8 +329,8 @@ const goal={id:Date.now(),name, target, saved};
 goals.push(goal);
 
 localStorage.setItem('goals', JSON.stringify(goals));
-document.getElementById(goal-name).value ='';
-document.getElementById(goal-target).value= '';
+document.getElementById('goal-name').value ='';
+document.getElementById('goal-target').value= '';
 document.getElementById('goal-saved').value = '';
 document.getElementById('goal-form').style.display = 'none'; 
 renderGoals();
@@ -339,7 +339,7 @@ renderGoals();
 function deleteGoal(id)
 {
 goals = goals.filter(g=> g.id !== id);
-localStorage.setItem('goals'. JSON.stringify(goals));
+localStorage.setItem('goals', JSON.stringify(goals));
 renderGoals();
 }
 
@@ -374,7 +374,7 @@ li.innerHTML=`
 <span class="goal-amounts">$${g.saved.toFixed(2)} / $${g.target.toFixed(2)}</span>
 </div>
 <div class="goal-bar-track">
-<div class="goal-bar-fill ${done ? 'goal=complete' : ''}" style="width:${pct}%"{pct}></div>
+<div class="goal-bar-fill ${done ? 'goal-complete' : ''}" style="width:${pct}%"{pct}></div>
 </div>
 <div class="goal-footer">
 <span class="goal-pct">${Math.round(pct)}% complete</span>
@@ -387,4 +387,13 @@ goalList.appendChild(li);
 });
 
 
+}
+
+
+function clearAll()
+{
+if(!confirm('Clear all transactions? This cannot be undone.')) return;
+transactions=[];
+localStorage.removeItem('transactions');
+updateUI();
 }
